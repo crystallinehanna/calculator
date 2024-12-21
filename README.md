@@ -16,15 +16,15 @@ python3 main.py
 
 ### Features
 - Depedensi
-Semua depedensi yang diperlukan akan otomatis terinstall pada saat program di run.
+> Semua depedensi yang diperlukan akan otomatis terinstall pada saat program di run.
 - GUI
-Tampilan yang lebih mudah dibaca dan interaksi yang gampang dengan menambahkan warna pada hasil perhitungan dan error.
+> Tampilan yang lebih mudah dibaca dan interaksi yang gampang dengan menambahkan warna pada hasil perhitungan dan error.
 - GUI (arrows)
-Pada saat memilih menu bisa menggunakan arrow (Up & Down) untuk mempermudah dalam memilih menu.
+> Pada saat memilih menu bisa menggunakan arrow (Up & Down) untuk mempermudah dalam memilih menu.
 
 ### Changelog
 - Fix
 Memperbaiki beberapa kesalahan umum.
 
 ### Screenshot
-<img src="aset/"/>
+<img src="aset/aset/20241221_235634.png"/>

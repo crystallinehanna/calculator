@@ -1,6 +1,21 @@
 import os
 import curses
 import math
+import subprocess
+from colorama import init, Fore, Style
+
+# Inisialisasi colorama
+init(autoreset=True)
+
+def install_dependencies():
+    """Fungsi untuk menginstal dependensi yang diperlukan."""
+    dependencies = ["colorama"]
+    for package in dependencies:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        except subprocess.CalledProcessError:
+            print(Fore.RED + f"Gagal menginstal paket: {package}")
+            sys.exit(1)
 
 def clear_terminal():
     """Fungsi untuk membersihkan terminal."""
@@ -78,47 +93,82 @@ def calculator():
 
     def run_calculator(choice):
         clear_terminal()
+        result = None
+        error = None
         if choice == 0:
             print("Ini adalah menu Penjumlahan")
-            num1, num2 = map(float, input("Ketik <angka> + <angka>: ").split('+'))
-            result = add(num1, num2)
-            print(f"Hasil: {num1} + {num2} = {result}")
-            history.append(f"{num1} + {num2} = {result}")
+            try:
+                num1 = float(input("Angka pertama: "))
+                num2 = float(input(f"{num1} akan ditambahkan dengan: "))
+                result = add(num1, num2)
+                print(Fore.GREEN + f"Hasil: {num1} + {num2} = {result}")
+                history.append(f"{num1} + {num2} = {result}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 1:
             print("Ini adalah menu Perkalian")
-            num1, num2 = map(float, input("Ketik <angka> x <angka>: ").split('x'))
-            result = multiply(num1, num2)
-            print(f"Hasil: {num1} x {num2} = {result}")
-            history.append(f"{num1} x {num2} = {result}")
+            try:
+                num1 = float(input("Angka pertama: "))
+                num2 = float(input(f"{num1} akan dikalikan dengan: "))
+                result = multiply(num1, num2)
+                print(Fore.GREEN + f"Hasil: {num1} x {num2} = {result}")
+                history.append(f"{num1} x {num2} = {result}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 2:
             print("Ini adalah menu Pembagian")
-            num1, num2 = map(float, input("Ketik <angka> / <angka>: ").split('/'))
-            result = divide(num1, num2)
-            print(f"Hasil: {num1} / {num2} = {result}")
-            history.append(f"{num1} / {num2} = {result}")
+            try:
+                num1 = float(input("Angka pertama: "))
+                num2 = float(input(f"{num1} akan dibagi dengan: "))
+                result = divide(num1, num2)
+                if isinstance(result, str):  # Jika hasil adalah pesan error
+                    error = result
+                    print(Fore.RED + error)
+                else:
+                    print(Fore.GREEN + f"Hasil: {num1} / {num2} = {result}")
+                    history.append(f"{num1} / {num2} = {result}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 3:
             print("Ini adalah menu Persentase")
-            num1, num2 = map(float, input("Ketik <angka> dari <angka>: ").split('dari'))
-            result = percentage(num1, num2)
-            print(f"Hasil: {num1} adalah {result}% dari {num2}")
-            history.append(f"{num1} adalah {result}% dari {num2}")
+            try:
+                num1 = float(input("Angka pertama: "))
+                num2 = float(input(f"{num1} adalah persentase dari: "))
+                result = percentage(num1, num2)
+                print(Fore.GREEN + f"Hasil: {num1} adalah {result}% dari {num2}")
+                history.append(f"{num1} adalah {result}% dari {num2}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 4:
             print("Ini adalah menu Eksponen")
-            num1, num2 = map(float, input("Ketik <angka> ^ <angka>: ").split('^'))
-            result = exponent(num1, num2)
-            print(f"Hasil: {num1} ^ {num2} = {result}")
-            history.append(f"{num1} ^ {num2} = {result}")
+            try:
+                num1 = float(input("Angka pertama: "))
+                num2 = float(input(f"{num1} pangkat: "))
+                result = exponent(num1, num2)
+                print(Fore.GREEN + f"Hasil: {num1} ^ {num2} = {result}")
+                history.append(f"{num1} ^ {num2} = {result}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 5:
             print("Ini adalah menu Akar Kuadrat")
-            num1 = float(input("Ketik akar dari <angka>: "))
-            result = square_root(num1)
-            print(f"Hasil: akar dari {num1} = {result}")
-            history.append(f"akar dari {num1} = {result}")
+            try:
+                num1 = float(input("Ketik akar dari <angka>: "))
+                result = square_root(num1)
+                print(Fore.GREEN + f"Hasil: akar dari {num1} = {result}")
+                history.append(f"akar dari {num1} = {result}")
+            except ValueError:
+                error = "Input tidak valid, mohon masukkan angka."
+                print(Fore.RED + error)
 
         elif choice == 6:
             print("Riwayat Perhitungan:")
@@ -144,4 +194,5 @@ def calculator():
             break
 
 if __name__ == "__main__":
+    install_dependencies()
     calculator()

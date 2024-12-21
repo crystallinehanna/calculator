@@ -2,55 +2,45 @@ import os
 import curses
 import math
 import subprocess
+import sys
 from colorama import init, Fore, Style
 
-# Inisialisasi colorama
 init(autoreset=True)
 
 def install_dependencies():
-    """Fungsi untuk menginstal dependensi yang diperlukan."""
     dependencies = ["colorama"]
     for package in dependencies:
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
         except subprocess.CalledProcessError:
-            print(Fore.RED + f"Gagal menginstal paket: {package}")
+            print(Fore.RED + f"Gagal menginstall: {package}")
             sys.exit(1)
 
 def clear_terminal():
-    """Fungsi untuk membersihkan terminal."""
-    # Windows
     if os.name == 'nt':
         os.system('cls')
-    # Mac dan Linux
     else:
         os.system('clear')
 
 def add(x, y):
-    """Fungsi untuk menambahkan dua angka."""
     return x + y
 
 def multiply(x, y):
-    """Fungsi untuk mengalikan dua angka."""
     return x * y
 
 def divide(x, y):
-    """Fungsi untuk membagi dua angka."""
     if y == 0:
         return "Error: Division by zero is not allowed."
     else:
         return x / y
 
 def percentage(x, y):
-    """Fungsi untuk menghitung persentase x dari y."""
     return (x / y) * 100
 
 def exponent(x, y):
-    """Fungsi untuk menghitung eksponen."""
     return x ** y
 
 def square_root(x):
-    """Fungsi untuk menghitung akar kuadrat."""
     return math.sqrt(x)
 
 def display_menu(stdscr, menu, title):
@@ -96,7 +86,7 @@ def calculator():
         result = None
         error = None
         if choice == 0:
-            print("Ini adalah menu Penjumlahan")
+            print("Menu Penjumlahan")
             try:
                 num1 = float(input("Angka pertama: "))
                 num2 = float(input(f"{num1} akan ditambahkan dengan: "))
@@ -104,11 +94,11 @@ def calculator():
                 print(Fore.GREEN + f"Hasil: {num1} + {num2} = {result}")
                 history.append(f"{num1} + {num2} = {result}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 1:
-            print("Ini adalah menu Perkalian")
+            print("Menu Perkalian")
             try:
                 num1 = float(input("Angka pertama: "))
                 num2 = float(input(f"{num1} akan dikalikan dengan: "))
@@ -116,11 +106,11 @@ def calculator():
                 print(Fore.GREEN + f"Hasil: {num1} x {num2} = {result}")
                 history.append(f"{num1} x {num2} = {result}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 2:
-            print("Ini adalah menu Pembagian")
+            print("Menu Pembagian")
             try:
                 num1 = float(input("Angka pertama: "))
                 num2 = float(input(f"{num1} akan dibagi dengan: "))
@@ -132,11 +122,11 @@ def calculator():
                     print(Fore.GREEN + f"Hasil: {num1} / {num2} = {result}")
                     history.append(f"{num1} / {num2} = {result}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 3:
-            print("Ini adalah menu Persentase")
+            print("Menu Persentase")
             try:
                 num1 = float(input("Angka pertama: "))
                 num2 = float(input(f"{num1} adalah persentase dari: "))
@@ -144,11 +134,11 @@ def calculator():
                 print(Fore.GREEN + f"Hasil: {num1} adalah {result}% dari {num2}")
                 history.append(f"{num1} adalah {result}% dari {num2}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 4:
-            print("Ini adalah menu Eksponen")
+            print("Menu Eksponen")
             try:
                 num1 = float(input("Angka pertama: "))
                 num2 = float(input(f"{num1} pangkat: "))
@@ -156,22 +146,22 @@ def calculator():
                 print(Fore.GREEN + f"Hasil: {num1} ^ {num2} = {result}")
                 history.append(f"{num1} ^ {num2} = {result}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 5:
-            print("Ini adalah menu Akar Kuadrat")
+            print("Menu Akar Kuadrat")
             try:
                 num1 = float(input("Ketik akar dari <angka>: "))
                 result = square_root(num1)
                 print(Fore.GREEN + f"Hasil: akar dari {num1} = {result}")
                 history.append(f"akar dari {num1} = {result}")
             except ValueError:
-                error = "Input tidak valid, mohon masukkan angka."
+                error = "Input tidak valid, coba masukkan angka."
                 print(Fore.RED + error)
 
         elif choice == 6:
-            print("Riwayat Perhitungan:")
+            print("Riwayat:")
             for record in history:
                 print(record)
 
@@ -182,15 +172,19 @@ def calculator():
         "4. Persentase",
         "5. Eksponen",
         "6. Akar Kuadrat",
-        "7. Riwayat Perhitungan"
+        "7. Riwayat Perhitungan",
+        "8. Keluar"
     ]
 
     while True:
-        choice = curses.wrapper(display_menu, menu, "Welcome to Hanna Calculators\nPilih operasi:")
+        choice = curses.wrapper(display_menu, menu, "Welcome to Hanna Calculators\nPilih program perhitungan...:")
+        if choice == 7:
+            print("Berhasil keluar dari Calculator")
+            break
         run_calculator(choice)
 
-        next_calculation = input("Ingin melakukan perhitungan lagi? (ya/tidak): ")
-        if next_calculation.lower() != 'ya':
+        next_calculation = input("Ingin melakukan perhitungan lagi? (y/n): ")
+        if next_calculation.lower() != 'y':
             break
 
 if __name__ == "__main__":

@@ -23,8 +23,8 @@ python3 main.py
 > Pada saat memilih menu bisa menggunakan arrow (Up & Down) untuk mempermudah dalam memilih menu.
 
 ### Changelog
-- Fix
-Memperbaiki beberapa kesalahan umum.
+> Fix
+- Memperbaiki beberapa kesalahan umum.
 
 ### Screenshot
-<img src="aset/aset/20241221_235634.png"/>
+<img src="aset/20241221_235634.png"/>
